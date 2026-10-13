@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coding Academy</title>
+<style>
+:root{--bg:#f4f6fb;--box:#ffffff;--text:#1a1a2e;--garis:#d0d5e5;--biru:#2f4fd8;--btn-text:#ffffff;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121428;--box:#1c1f3a;--text:#eef0ff;--garis:#33385f;--biru:#8f9dff;--btn-text:#121428}}
+:root[data-theme="dark"]{--bg:#121428;--box:#1c1f3a;--text:#eef0ff;--garis:#33385f;--biru:#8f9dff;--btn-text:#121428}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--text);margin:0}
+header{background:var(--biru);color:var(--btn-text);padding:16px;text-align:center}
+header h1{margin:0 0 10px}
+nav button{padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-size:1rem;margin:0 4px}
+.container{max-width:900px;margin:20px auto;padding:0 16px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--box);border:1px solid var(--garis);border-radius:8px;overflow:hidden}
+.foto{font-size:4rem;text-align:center;padding:24px;background:var(--garis)}
+.isi{padding:12px 16px}
+.isi h3{margin:0 0 6px}
+.isi p{margin:0;font-size:.95rem}
+form,.hasil{background:var(--box);border:1px solid var(--garis);border-radius:8px;padding:20px;max-width:500px;margin:auto}
+label{display:block;margin:12px 0 4px;font-weight:bold}
+input[type=text],select,textarea{width:100%;padding:8px;border:1px solid var(--garis);border-radius:6px;font-size:1rem;box-sizing:border-box;background:var(--bg);color:var(--text)}
+.radio{font-weight:normal;display:inline-block;margin-right:16px}
+.tombol{background:var(--biru);color:var(--btn-text);padding:10px 20px;border:none;border-radius:6px;font-size:1rem;cursor:pointer;margin-top:16px}
+.kelabu{background:var(--garis);color:var(--text)}
+#konfirmasi{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center}
+#konfirmasi div{background:var(--box);padding:24px;border-radius:8px;text-align:center;max-width:90%}
+[hidden]{display:none!important}
+table{width:100%;border-collapse:collapse}
+td{padding:8px;border-bottom:1px solid var(--garis);vertical-align:top}
+td:first-child{font-weight:bold;width:40%}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💻 Coding Academy</h1>
+  <nav>
+    <button onclick="tampil('gallery')">Gallery</button>
+    <button onclick="tampil('pendaftaran')">Pendaftaran</button>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- TAMPILAN 1: GALLERY -->
+  <div id="gallery">
+    <h2>Gallery Kegiatan Pelatihan</h2>
+    <div class="gallery">
+      <div class="card"><div class="foto">🐍</div><div class="isi"><h3>Kelas Dasar Python</h3><p>Peserta belajar variabel, perulangan, dan fungsi dengan latihan langsung.</p></div></div>
+      <div class="card"><div class="foto">🌐</div><div class="isi"><h3>Workshop Web</h3><p>Membuat halaman web sederhana menggunakan HTML, CSS, dan JavaScript.</p></div></div>
+      <div class="card"><div class="foto">👥</div><div class="isi"><h3>Pair Programming</h3><p>Dua peserta mengerjakan satu soal bersama, saling bergantian menulis kode.</p></div></div>
+      <div class="card"><div class="foto">📱</div><div class="isi"><h3>Bootcamp Mobile</h3><p>Belajar membuat aplikasi Android dan iOS selama lima hari.</p></div></div>
+      <div class="card"><div class="foto">🎓</div><div class="isi"><h3>Mentoring Karier</h3><p>Mentor membantu peserta menyiapkan portofolio dan wawancara kerja.</p></div></div>
+      <div class="card"><div class="foto">🏆</div><div class="isi"><h3>Demo Day</h3><p>Peserta mempresentasikan proyek akhir di depan mentor dan tamu.</p></div></div>
+    </div>
+  </div>
+
+  <!-- TAMPILAN 2: PENDAFTARAN -->
+  <div id="pendaftaran" hidden>
+    <h2 style="text-align:center">Form Pendaftaran</h2>
+
+    <form id="form" onsubmit="simpan(event)">
+      <label>NIK</label>
+      <input type="text" id="nik" maxlength="16" required>
+
+      <label>Nama Lengkap</label>
+      <input type="text" id="nama" required>
+
+      <label>Jenis Kelamin</label>
+      <label class="radio"><input type="radio" name="jk" value="Laki-laki" required> Laki-laki</label>
+      <label class="radio"><input type="radio" name="jk" value="Perempuan"> Perempuan</label>
+
+      <label>No HP</label>
+      <input type="text" id="hp" required>
+
+      <label>Alamat</label>
+      <textarea id="alamat" rows="3" required></textarea>
+
+      <label>Bahasa Pemrograman yang Diminati</label>
+      <select id="bahasa" required>
+        <option value="">-- Pilih --</option>
+        <option>Python</option>
+        <option>JavaScript</option>
+        <option>Java</option>
+        <option>PHP</option>
+        <option>C++</option>
+      </select>
+
+      <button type="submit" class="tombol">Simpan</button>
+    </form>
+
+    <div class="hasil" id="hasil" hidden>
+      <h3>Data Pendaftaran Tersimpan ✅</h3>
+      <table>
+        <tr><td>NIK</td><td id="h-nik"></td></tr>
+        <tr><td>Nama Lengkap</td><td id="h-nama"></td></tr>
+        <tr><td>Jenis Kelamin</td><td id="h-jk"></td></tr>
+        <tr><td>No HP</td><td id="h-hp"></td></tr>
+        <tr><td>Alamat</td><td id="h-alamat"></td></tr>
+        <tr><td>Bahasa Pemrograman</td><td id="h-bahasa"></td></tr>
+      </table>
+      <button class="tombol" onclick="daftarLagi()">Daftar Lagi</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Dialog konfirmasi -->
+<div id="konfirmasi" hidden>
+  <div>
+    <p>Apakah Anda sudah yakin untuk menyimpan?</p>
+    <button class="tombol" onclick="jawab(true)">Ya</button>
+    <button class="tombol kelabu" onclick="jawab(false)">Tidak</button>
+  </div>
+</div>
+
+<script>
+// pindah antara gallery dan pendaftaran
+function tampil(nama) {
+  document.getElementById("gallery").hidden = (nama != "gallery");
+  document.getElementById("pendaftaran").hidden = (nama != "pendaftaran");
+}
+
+// saat tombol Simpan ditekan, munculkan dialog
+function simpan(e) {
+  e.preventDefault();
+  document.getElementById("konfirmasi").hidden = false;
+}
+
+// jawaban dialog: Ya atau Tidak
+function jawab(ya) {
+  document.getElementById("konfirmasi").hidden = true;
+  if (ya) {
+    document.getElementById("h-nik").textContent = document.getElementById("nik").value;
+    document.getElementById("h-nama").textContent = document.getElementById("nama").value;
+    document.getElementById("h-jk").textContent = document.querySelector('input[name="jk"]:checked').value;
+    document.getElementById("h-hp").textContent = document.getElementById("hp").value;
+    document.getElementById("h-alamat").textContent = document.getElementById("alamat").value;
+    document.getElementById("h-bahasa").textContent = document.getElementById("bahasa").value;
+    document.getElementById("form").hidden = true;
+    document.getElementById("hasil").hidden = false;
+  }
+}
+
+// kembali ke form kosong
+function daftarLagi() {
+  document.getElementById("form").reset();
+  document.getElementById("form").hidden = false;
+  document.getElementById("hasil").hidden = true;
+}
+</script>
+</body>
+</html>
